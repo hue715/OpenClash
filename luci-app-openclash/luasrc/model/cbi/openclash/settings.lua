@@ -120,6 +120,7 @@ else
 	o.description = translate("Bypass The China Network Flows, Improve Performance, Depend on Dnsmasq")
 	o.default = 0
 	o:depends("enable_redirect_dns", "1")
+	o:depends("enable_redirect_dns", "3")
 
 	o = s:taboption("op_mode", Value, "custom_china_domain_dns_server", translate("Specify CN DNS Server"))
 	o.description = translate("Specify DNS Server For CN Domain Lists, Only One IP Server Address Support")
@@ -248,6 +249,7 @@ o.default = 1
 o:value("0", translate("Disable"))
 o:value("1", translate("Dnsmasq Redirect"))
 o:value("2", translate("Firewall Redirect"))
+o:value("3", translate("AdGuardHome Hijack"))
 
 o = s:taboption("dns", Flag, "enable_custom_dns", font_red..bold_on..translate("Custom DNS Setting")..bold_off..font_off)
 o.description = font_red..bold_on..translate("Set OpenClash Upstream DNS Resolve Server")..bold_off..font_off
@@ -280,6 +282,7 @@ o = s:taboption("dns", Flag, "disable_masq_cache", translate("Disable Dnsmasq's 
 o.description = translate("Recommended Enabled For Avoiding Some Connection Errors")..font_red..bold_on..translate("(Maybe Incompatible For Your Firmware)")..bold_off..font_off
 o.default = 0
 o:depends("enable_redirect_dns", "1")
+o:depends("enable_redirect_dns", "3")
 
 o = s:taboption("dns", Flag, "custom_fallback_filter", translate("Custom Fallback-Filter"))
 o.description = translate("Take Effect If Fallback DNS Setted, Prevent DNS Pollution")
@@ -671,6 +674,7 @@ o.description = translate("Domains or IPs in The List Will Not be Affected by Th
 o.rows = 20
 o.wrap = "off"
 o:depends("enable_redirect_dns", "1")
+o:depends("enable_redirect_dns", "3")
 
 function o.cfgvalue(self, section)
 	return NXFS.readfile("/etc/openclash/custom/openclash_custom_chnroute_pass.list") or ""
@@ -1479,6 +1483,7 @@ o.description = translate("Domains or IPs in The List Will Not be Affected by Th
 o.rows = 20
 o.wrap = "off"
 o:depends({ipv6_enable = "1", enable_redirect_dns = "1"})
+o:depends({ipv6_enable = "1", enable_redirect_dns = "3"})
 
 function o.cfgvalue(self, section)
 	return NXFS.readfile("/etc/openclash/custom/openclash_custom_chnroute6_pass.list") or ""

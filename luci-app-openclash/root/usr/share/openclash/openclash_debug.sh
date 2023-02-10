@@ -75,6 +75,8 @@ dns_re()
 	   echo "Dnsmasq 转发"
    elif [ "$1" = "2" ]; then
 	   echo "Firewall 转发"
+   elif [ "$1" = "3" ]; then
+	   echo "AdGuardHome 劫持"
    else
       echo "停用"
    fi
